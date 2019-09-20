@@ -1,0 +1,10 @@
+{
+    "/vendor.js": "/vendor.js",
+    "/app.js": "/app.js",
+    "/editors/tinymce.js": "/editors/tinymce.js",
+    "/glyphicons.css": "/glyphicons.css",
+    "/app.css": "/app.css",
+    "/vendor.css": "/vendor.css",
+    "/theme.js": "/theme.js",
+    "/manifest.js": "/manifest.js"
+}
