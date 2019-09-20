@@ -14,9 +14,8 @@ class Users extends CoreUsersModule
     public function filters(): Mutable
     {
         return $this->scaffoldFilters()
-//            ->update('email', function(Text $text) {
-//                return $text->enableModes();
-//            })
-            ;
+            ->update('email', function (Text $text) {
+                return $text->enableModes();
+            });
     }
 }

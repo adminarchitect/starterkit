@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\Terranet\Administrator\Dashboard\BlankPanel;
 use App\Http\Terranet\Administrator\Dashboard\DatabasePanel;
+use App\Http\Terranet\Administrator\Dashboard\GoogleAnalyticsPanel;
 use App\Http\Terranet\Administrator\Dashboard\MembersPanel;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -21,14 +22,14 @@ class AdminServiceProvider extends ServiceProvider
     /**
      * Dashboard panels registration.
      *
-     * @param  Manager  $dashboard
+     * @param Manager $dashboard
      * @return Manager
      */
     protected function dashboard(Manager $dashboard)
     {
         return $dashboard
             ->row(static function (Row $row) {
-                $row->panel(new BlankPanel())->setWidth(12);
+                $row->panel(new GoogleAnalyticsPanel())->setWidth(12);
             })
             ->row(static function (Row $row) {
                 $row->panel(new MembersPanel())->setWidth(6);
@@ -37,7 +38,7 @@ class AdminServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param  Menu  $navigation
+     * @param Menu $navigation
      * @return Menu
      */
     protected function navigation(Menu $navigation)
@@ -94,7 +95,7 @@ class AdminServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param  Menu  $navigation
+     * @param Menu $navigation
      * @return AdminServiceProvider
      */
     protected function initSidebar(Menu $navigation): self
@@ -112,7 +113,7 @@ class AdminServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param  Menu  $navigation
+     * @param Menu $navigation
      * @return AdminServiceProvider
      */
     protected function initToolbar(Menu $navigation): self
@@ -134,7 +135,7 @@ class AdminServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param  MenuBuilder  $sidebar
+     * @param MenuBuilder $sidebar
      * @return $this
      */
     public function withDashboard(MenuBuilder $sidebar): self
@@ -149,7 +150,7 @@ class AdminServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param  MenuBuilder  $tools
+     * @param MenuBuilder $tools
      * @return $this
      */
     protected function withMedia(MenuBuilder $tools): self
@@ -167,7 +168,7 @@ class AdminServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param  MenuBuilder  $tools
+     * @param MenuBuilder $tools
      * @return $this
      */
     protected function withSettings(MenuBuilder $tools): self
@@ -185,7 +186,7 @@ class AdminServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param  MenuBuilder  $tools
+     * @param MenuBuilder $tools
      * @return $this
      */
     protected function withTranslations(MenuBuilder $tools): self

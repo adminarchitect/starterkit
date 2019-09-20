@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Place;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Contracts\Auth\Authenticatable;
 
@@ -20,32 +21,32 @@ class PlacePolicy
         //
     }
 
-//    /**
-//     * @param  Authenticatable  $user
-//     * @return bool
-//     */
-//    public function create(Authenticatable $user): bool
-//    {
-//        return $user->id === 1;
-//    }
-//
-//    /**
-//     * @param  Authenticatable  $user
-//     * @param  Place  $place
-//     * @return bool
-//     */
-//    public function update(Authenticatable $user, Place $place): bool
-//    {
-//        return $user->id === 1 && $place->id !== 2;
-//    }
-//
-//    /**
-//     * @param  Authenticatable  $user
-//     * @param  Place  $place
-//     * @return bool
-//     */
-//    public function delete(Authenticatable $user, Place $place): bool
-//    {
-//        return $this->update($user, $place);
-//    }
+    /**
+     * @param  Authenticatable  $user
+     * @return bool
+     */
+    public function create(Authenticatable $user): bool
+    {
+        return $user->id === 1;
+    }
+
+    /**
+     * @param  Authenticatable  $user
+     * @param  Place  $place
+     * @return bool
+     */
+    public function update(Authenticatable $user, Place $place): bool
+    {
+        return $user->id === 1 && $place->id !== 2;
+    }
+
+    /**
+     * @param  Authenticatable  $user
+     * @param  Place  $place
+     * @return bool
+     */
+    public function delete(Authenticatable $user, Place $place): bool
+    {
+        return $this->update($user, $place);
+    }
 }

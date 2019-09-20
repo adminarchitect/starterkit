@@ -26,7 +26,7 @@ class ShowItems
 
         $this->fetchSelected($entity, $collection)
             ->each(function (Place $place) use ($request) {
-                return $this->canTransform($place, $request) ? $place->activate() : $place;
+                return $this->canTransform($place, $request) ? $place->actievate() : $place;
             });
 
         return $entity;

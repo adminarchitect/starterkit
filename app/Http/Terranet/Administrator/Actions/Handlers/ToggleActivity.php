@@ -44,4 +44,9 @@ class ToggleActivity
     {
         return $entity->active ? 'Hide' : 'Show';
     }
+
+    public function hideFromIndex(): bool
+    {
+        return true;
+    }
 }

@@ -13,7 +13,7 @@ class Places extends CrudActions
     {
         return [
             // CustomAction::class
-//            ToggleActivity::class,
+            ToggleActivity::class,
         ];
     }
 
@@ -22,8 +22,8 @@ class Places extends CrudActions
         return array_merge(
             parent::batchActions(),
             [
-//                ShowItems::class,
-//                HideItems::class,
+                ShowItems::class,
+                HideItems::class,
                 // CustomAction::class
             ]
         );

@@ -37,7 +37,7 @@ return [
      *
      * @package `davejamesmiller/laravel-breadcrumbs:^5.2`
      */
-    'breadcrumbs' => false,
+    'breadcrumbs' => true,
 
     // Handle passwords -> Convert plain text to Hash
     'manage_passwords' => true,

@@ -4,7 +4,7 @@ namespace App\Http\Terranet\Administrator\Modules;
 
 use App\Http\Terranet\Administrator\Dashboard\BlankPanel;
 use App\Http\Terranet\Administrator\Dashboard\CustomMetric;
-use App\Http\Terranet\Administrator\Fields\CustomView;
+use App\Http\Terranet\Administrator\Fields\CustomField;
 use App\Place;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
@@ -51,22 +51,22 @@ class Places extends Scaffolding implements Navigable, Filtrable, Editable, Vali
     public function columns(): Mutable
     {
         return $this->scaffoldColumns()
-//            ->push(HasOne::make('Place Details', 'details'))
-//            ->push(BelongsTo::make('City'))
-//            ->push(Media::make('images'))
+            ->push(HasOne::make('Place Details', 'details'))
+            ->push(BelongsTo::make('City'))
+            ->push(Media::make('images'))
             ;
     }
 
     public function form()
     {
         return $this->scaffoldForm()
-//            ->update('description', function (TranslatableField $field) {
-//                return $field->tinymce();
-//            })
-            //->push(CustomView::make('custom_view'))
-//            ->push(HasOne::make('Place Details', 'details'))
-//            ->push(BelongsTo::make('City', 'city')->searchable(true))
-//            ->push(BelongsToMany::make('Tags')->useAsTitle('tag'))
+            ->update('description', function (TranslatableField $field) {
+                return $field->tinymce();
+            })
+            ->push(CustomField::make('custom_view'))
+            ->push(HasOne::make('Place Details', 'details'))
+            ->push(BelongsTo::make('Belongs to City', 'city')->searchable(false))
+            ->push(BelongsToMany::make('Belongs to Tags', 'tags')->tagList())
             ;
     }
 
@@ -75,64 +75,67 @@ class Places extends Scaffolding implements Navigable, Filtrable, Editable, Vali
         return $this->columns();
     }
 
-//    public function filters(): Mutable
-//    {
-//        return $this->scaffoldFilters()
-//            ->push(Text::make('Phone')->setQuery(function (Builder $builder, $value) {
-//                return $builder
-//                    ->join('place_details as pd', 'pd.place_id', '=', 'places.id')
-//                    ->where('phone', $value);
-//            }));
-//    }
+    public function filters(): Mutable
+    {
+        return $this->scaffoldFilters()
+            ->push(Text::make('Phone')->setQuery(function (Builder $builder, $value) {
+                return $builder
+                    ->join('place_details as pd', 'pd.place_id', '=', 'places.id')
+                    ->where('phone', $value);
+            }))
+            ;
+    }
 
-//    public function sortable(): array
-//    {
-//        return array_merge(
-//            $this->scaffoldSortable(),
-//            [
-//                'name' => function (Builder $builder, string $column, string $direction) {
-//                    return $builder->join('place_translations as pt', function (JoinClause $join) {
-//                        $join->on('pt.place_id', '=', 'places.id')
-//                            ->where('pt.language_id', locale()->id());
-//                    })->orderBy('pt.name', $direction);
-//                },
-//            ]
-//        );
-//    }
+    public function sortable(): array
+    {
+        return array_merge(
+            $this->scaffoldSortable(),
+            [
+                'name' => function (Builder $builder, string $column, string $direction) {
+                    return $builder->join('place_translations as pt', function (JoinClause $join) {
+                        $join->on('pt.place_id', '=', 'places.id')
+                            ->where('pt.language_id', locale()->id());
+                    })->orderBy('pt.name', $direction);
+                },
+            ]
+        );
+    }
 
-//    public function cards(): Manager
-//    {
-//        return (new Manager())->row(function (Row $row) {
-//            $row->panel(new BlankPanel())->setWidth(12);
-//        });
-//    }
+    public function cards(): Manager
+    {
+        return (new Manager())->row(function (Row $row) {
+            $row->panel(new BlankPanel())->setWidth(12);
+        });
+    }
 
-//    public function widgets(): Manager
-//    {
-//        /** @var Place $place */
-//        $place = app('scaffold.model');
-//
-//        $cards = new Manager();
-//        $cards->row(function (Row $row) use ($place) {
-//            $row->panel(new CustomMetric($place))->setWidth(6);
-//            $row->panel(new CustomMetric($place))->setWidth(6);
-//        });
-//        $cards->row(function (Row $row) use ($place) {
-//            $row->panel(new CustomMetric($place))->setWidth(12);
-//        });
-//
-//        return $cards;
-//    }
+    public function widgets(): Manager
+    {
+        /** @var Place $place */
+        $place = app('scaffold.model');
 
-//    public function rules()
-//    {
-//        return array_merge($this->scaffoldRules(), [
-//            'translatable.*.description' => 'required',
-//        ]);
-//    }
-//
-//    public function messages()
-//    {
-//        return ['required' => 'This is the custom message for required error.'];
-//    }
+        $cards = new Manager();
+        $cards->row(function (Row $row) use ($place) {
+            $row->panel(new CustomMetric($place))->setWidth(6);
+            $row->panel(new CustomMetric($place))->setWidth(6);
+        });
+        $cards->row(function (Row $row) use ($place) {
+            $row->panel(new CustomMetric($place))->setWidth(12);
+        });
+
+        return $cards;
+    }
+
+    public function rules()
+    {
+        return array_merge($this->scaffoldRules(), [
+            'translatable.*.description' => 'required',
+        ]);
+    }
+
+    public function messages()
+    {
+        return [
+//            'required' => 'This is the custom message for required error.'
+        ];
+    }
 }

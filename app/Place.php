@@ -28,7 +28,7 @@ class Place extends Model implements Translatable, AttachableInterface, HasMedia
     /** @var array */
     protected $fillable = [
         'active',
-//        'image'
+        'image'
     ];
 
     /** @var array */
@@ -41,18 +41,18 @@ class Place extends Model implements Translatable, AttachableInterface, HasMedia
 
     public function __construct(array $attributes = [])
     {
-//        $this->hasAttachedFile('image', [
-//            'variants' => [
-//                'medium' => [
-//                    'auto-orient' => [],
-//                    'resize' => ['dimensions' => '300x300'],
-//                ],
-//                'thumb' => '100x100',
-//            ],
-//            'attributes' => [
-//                'variants' => false,
-//            ],
-//        ]);
+        $this->hasAttachedFile('image', [
+            'variants' => [
+                'medium' => [
+                    'auto-orient' => [],
+                    'resize' => ['dimensions' => '300x300'],
+                ],
+                'thumb' => '100x100',
+            ],
+            'attributes' => [
+                'variants' => false,
+            ],
+        ]);
 
         parent::__construct($attributes);
     }
@@ -84,7 +84,7 @@ class Place extends Model implements Translatable, AttachableInterface, HasMedia
     }
 
     /**
-     * //@ScopeFilter()
+     * @ScopeFilter()
      * @param  Builder  $query
      * @return Builder
      */
@@ -94,7 +94,7 @@ class Place extends Model implements Translatable, AttachableInterface, HasMedia
     }
 
     /**
-     * //@ScopeFilter()
+     * @ScopeFilter()
      * @param  Builder  $query
      * @return Builder
      */
@@ -104,7 +104,7 @@ class Place extends Model implements Translatable, AttachableInterface, HasMedia
     }
 
     /**
-     * //@ScopeFilter(name="Callable", icon="fa-phone")
+     * @ScopeFilter(name="Callable", icon="fa-phone")
      * @param  Builder  $query
      * @return Builder|\Illuminate\Database\Query\Builder
      */
